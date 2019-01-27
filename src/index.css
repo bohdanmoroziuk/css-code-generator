@@ -5,3 +5,12 @@
 .form-control-range {
     background-color: initial !important;
 }
+
+.group {
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed #eaeaea;
+}
+
+.group:not(:last-of-type) {
+    margin-bottom: 1rem;
+}
