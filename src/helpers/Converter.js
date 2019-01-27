@@ -1,5 +1,17 @@
 class Converter {
     static hexToRGB(h) {
+        const [ r, g, b ] = Converter.parseHEX(h);
+
+        return "rgb(" + +r + "," + +g + "," + +b + ")";
+    }
+
+    static hexToRGBA(h, alpha = 1) {
+        const [ r, g, b ] = Converter.parseHEX(h);
+
+        return "rgb(" + +r + "," + +g + "," + +b + "," + alpha + ")";
+    }
+
+    static parseHEX(h) {
         let r = 0, g = 0, b = 0;
 
         if (h.length === 4) {
@@ -13,7 +25,7 @@ class Converter {
             b = "0x" + h[5] + h[6];
         }
 
-        return "rgb(" + +r + "," + +g + "," + +b + ")";
+        return [ r, g, b ];
     }
 
     static rgbToHEX(rgb) {
