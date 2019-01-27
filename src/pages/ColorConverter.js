@@ -1,43 +1,32 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Converter from '../helpers/Converter';
+import { changeColorParameter } from '../actions';
+import { selectColor } from '../selectors';
 
 class ColorConverter extends Component {
-    state = {
-        color: '#000',
-        scale: 'hex'
-    };
-
     handleChange = event => {
         const { name, value } = event.target;
 
-        this.setState({
-            color: value,
+        this.props.changeColorParameter({
+            value,
             scale: name
         });
     };
 
-    // const hex = scale === 'rgb' 
-    //     ? Converter.rgbToHEX(color) 
-    //     : color;
-
-    // const rgb = scale === 'hex' 
-    //     ? Converter.hexToRGB(color) 
-    //     : color;
-
-    // return { hex, rgb };
     tryConvert = () => {
-        const { color, scale } = this.state;
+        const { value, scale } = this.props.color;
 
         switch (scale) {
             case 'rgb':
                 return {
-                    hex: Converter.rgbToHEX(color),
-                    rgb: color
+                    hex: Converter.rgbToHEX(value),
+                    rgb: value
                 };
             case 'hex':
                 return {
-                    hex: color,
-                    rgb: Converter.hexToRGB(color)
+                    hex: value,
+                    rgb: Converter.hexToRGB(value)
                 };
             default:
                 return {
@@ -52,7 +41,7 @@ class ColorConverter extends Component {
 
         return (
             <div className="card">
-                <div class="card-header">
+                <div className="card-header">
                     Convert: HEX &amp; RGB
                 </div>
                 <div className="card-body">
@@ -76,4 +65,19 @@ class ColorConverter extends Component {
     };
 }
 
-export default ColorConverter;
+const mapStateToProps = state => ({
+    color: {
+        ...selectColor(state)
+    }
+});
+
+const mapDispatchToProps = dispatch => ({
+    changeColorParameter: (parameter) => {
+        dispatch(changeColorParameter(parameter))
+    }
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ColorConverter);

@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { selectBoxShadow } from '../selectors';
-import { changeBoxShadow } from '../actions';
+import { changeBoxShadowParameter } from '../actions';
+import Converter from '../helpers/Converter';
+import CheckboxGroup from '../components/CheckboxGroup';
+import RangeGroup from '../components/RangeGroup';
+import ColorGroup from '../components/ColorGroup';
 
 class BoxShadowGenerator extends Component {
     static propTypes = {
@@ -12,7 +16,7 @@ class BoxShadowGenerator extends Component {
     handleChange = event => {
         const { name, value, checked, type } = event.target;
 
-        this.props.changeBoxShadow({
+        this.props.changeBoxShadowParameter({
             [name]: type === 'checkbox' ? checked : value
         });
     };
@@ -25,6 +29,9 @@ class BoxShadowGenerator extends Component {
             .map(item => {
                 if (item === 'inset') {
                     return boxShadow[item] === true ? 'inset' : '';
+                }
+                if (item === 'shadowColor') {
+                    return Converter.hexToRGBA(boxShadow[item], boxShadow['opacity']);
                 }
                 if ( ! isNaN(parseInt(boxShadow[item], 10))) {
                     return boxShadow[item] + 'px';
@@ -49,8 +56,6 @@ class BoxShadowGenerator extends Component {
 
         const boxShadowStyle = this.makeBoxShadowStyle();
 
-        console.log(boxShadowStyle);
-
         return (
             <div className="card">
                 <div className="card-header">
@@ -61,54 +66,27 @@ class BoxShadowGenerator extends Component {
                         <div className="col-md-5 col-sm-6">
                             <form>
                                 <div className="group">
-                                    <div className="form-group form-check">
-                                        <input type="checkbox" className="form-check-input" name="inset" id="inset" checked={inset} onChange={this.handleChange} />
-                                        <label className="form-check-label" htmlFor="inset">Inset</label>
-                                    </div>
+                                    <CheckboxGroup label="Inset" name="inset" checked={inset} handleChange={this.handleChange} />
                                 </div>
                                 <div className="group">
-                                    <div className="form-group">
-                                        <label htmlFor="offsetX">Horizontal Length</label>
-                                        <input type="range" className="form-control-range" name="offsetX" id="offsetX" value={offsetX} onChange={this.handleChange} />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="offsetY">Vertical Length</label>
-                                        <input type="range" className="form-control-range" name="offsetY" id="offsetY" value={offsetY} onChange={this.handleChange} />
-                                    </div>
+                                    <RangeGroup label="Horizontal Length" name="offsetX" min="-100" step="1" max="100" value={offsetX} handleChange={this.handleChange} />
+                                    <RangeGroup label="Vertical Length" name="offsetY" min="-100" step="1" max="100" value={offsetY} handleChange={this.handleChange} />
                                 </div>
                                 <div className="group">
-                                    <div className="form-group">
-                                        <label htmlFor="blurRadius">Blur Radius</label>
-                                        <input type="range" className="form-control-range" name="blurRadius" id="blurRadius" value={blurRadius} onChange={this.handleChange} />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="spreadRedius">Spread Radius</label>
-                                        <input type="range" className="form-control-range" name="spreadRedius" id="spreadRedius" value={spreadRedius} onChange={this.handleChange} />
-                                    </div>
+                                    <RangeGroup label="Blur Radius" name="blurRadius" min="0" step="1" max="100" value={blurRadius} handleChange={this.handleChange} />
+                                    <RangeGroup label="Spread Radius" name="spreadRedius" min="-100" step="1" max="100" value={spreadRedius} handleChange={this.handleChange} />
                                 </div>
                                 <div className="group">
-                                    <div className="form-group">
-                                        <label htmlFor="shadowColor">Shadow Color</label>
-                                        <input type="color" className="form-control" name="shadowColor" id="shadowColor" value={shadowColor} onChange={this.handleChange} />
-                                    </div>
+                                    <ColorGroup label="Shadow Color" name="shadowColor" value={shadowColor} handleChange={this.handleChange} />
                                 </div>
                                 <div className="group">
-                                    <div className="form-group">
-                                        <label htmlFor="backgroundColor">Background Color</label>
-                                        <input type="color" className="form-control" name="backgroundColor" id="backgroundColor" value={backgroundColor} onChange={this.handleChange} />
-                                    </div>
+                                    <ColorGroup label="Background Color" name="backgroundColor" value={backgroundColor} handleChange={this.handleChange} />
                                 </div>
                                 <div className="group">
-                                    <div className="form-group">
-                                        <label htmlFor="boxColor">Box Color</label>
-                                        <input type="color" className="form-control" name="boxColor" id="boxColor" value={boxColor} onChange={this.handleChange} />
-                                    </div>
+                                    <ColorGroup label="Box Color" name="boxColor" value={boxColor} handleChange={this.handleChange} />
                                 </div>
                                 <div className="group">
-                                    <div className="form-group">
-                                        <label htmlFor="opacity">Opacity</label>
-                                        <input type="range" className="form-control-range" name="opacity" id="opacity" value={opacity} onChange={this.handleChange} />
-                                    </div>
+                                    <RangeGroup label="Opacity" name="opacity" min="0" step="0.01" max="1" value={opacity} handleChange={this.handleChange} />
                                 </div>
                             </form>
                         </div>
@@ -121,7 +99,7 @@ class BoxShadowGenerator extends Component {
                             <div 
                                 className="card" 
                                 style={{
-                                    width: '50%',
+                                    width: '70%',
                                     height: '70%',
                                     margin: '0 auto',
                                     display: 'flex',
@@ -142,9 +120,11 @@ class BoxShadowGenerator extends Component {
                                             className="form-control" 
                                             rows="3"
                                             style={{
-                                                resize: 'none'
+                                                resize: 'none',
+                                                fontSize: '14px',
                                             }}
-                                            value={`box-shadow: ${boxShadowStyle};`}
+                                            value={boxShadowStyle}
+                                            readOnly
                                         ></textarea>
                                     </div>
                                 </form>
@@ -164,8 +144,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    changeBoxShadow: (rule) => {
-        dispatch(changeBoxShadow(rule))
+    changeBoxShadowParameter: (parameter) => {
+        dispatch(changeBoxShadowParameter(parameter))
     }
 });
 
