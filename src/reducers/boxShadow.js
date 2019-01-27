@@ -14,10 +14,10 @@ const initialState = {
 
 const boxShadowReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ACTION_TYPES.CHANGE_BOX_SHADOW:
+        case ACTION_TYPES.CHANGE_BOX_SHADOW_PARAMETER:
             return {
                 ...state,
-                ...action.rule
+                ...action.parameter
             };
         default:
             return {
