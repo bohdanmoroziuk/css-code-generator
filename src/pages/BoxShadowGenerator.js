@@ -97,32 +97,17 @@ class BoxShadowGenerator extends Component {
                             }}   
                         >
                             <div 
-                                className="card" 
+                                className="card box" 
                                 style={{
-                                    width: '70%',
-                                    height: '70%',
-                                    margin: '0 auto',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    justifyContent: 'center',
                                     backgroundColor: boxColor,
                                     boxShadow: boxShadowStyle
                                 }}
                             >
-                                <form
-                                    style={{
-                                        width: '75%',
-                                        margin: '0 auto'
-                                    }}
-                                >
+                                <form className="box__form">
                                     <div className="form-group">
                                         <textarea 
-                                            className="form-control" 
+                                            className="form-control box__textarea" 
                                             rows="3"
-                                            style={{
-                                                resize: 'none',
-                                                fontSize: '14px',
-                                            }}
                                             value={boxShadowStyle}
                                             readOnly
                                         ></textarea>
