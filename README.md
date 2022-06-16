@@ -1,12 +1,16 @@
 # CSS Code Generator
 
-## Color Converter
+> An application for converting colors and creating shadows.
 
-<img src="./color-converter.png" alt="Color Converter" />
+## Preview
 
-## Box Shadow Generator
+### Color Converter
 
-<img src="./box-shadow-generator.png" alt="Box Shadow Generator" />
+<img src="./screenshots/color-converter.png" alt="Color Converter" />
+
+### Box Shadow Generator
+
+<img src="./screenshots/box-shadow-generator.png" alt="Box Shadow Generator" />
 
 ## Available Scripts
 
