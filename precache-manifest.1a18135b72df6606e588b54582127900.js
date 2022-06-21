@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "b9d04970523d37fa0495",
+    "revision": "3bc045cd3eb5dd9c92cc",
     "url": "/css-code-generator/static/css/main.afc39cd2.chunk.css"
   },
   {
-    "revision": "b9d04970523d37fa0495",
-    "url": "/css-code-generator/static/js/main.b9d04970.chunk.js"
+    "revision": "3bc045cd3eb5dd9c92cc",
+    "url": "/css-code-generator/static/js/main.3bc045cd.chunk.js"
   },
   {
     "revision": "4625e9f70dbc0c68170c",
@@ -20,19 +20,19 @@ self.__precacheManifest = [
     "url": "/css-code-generator/static/js/3.2bc597ea.chunk.js"
   },
   {
-    "revision": "395956c2ad673cc66ad3",
+    "revision": "d4552c56fed52943367d",
     "url": "/css-code-generator/static/css/4.1b38143c.chunk.css"
   },
   {
-    "revision": "395956c2ad673cc66ad3",
-    "url": "/css-code-generator/static/js/4.395956c2.chunk.js"
+    "revision": "d4552c56fed52943367d",
+    "url": "/css-code-generator/static/js/4.d4552c56.chunk.js"
   },
   {
     "revision": "c869786e570ed307f5d1",
     "url": "/css-code-generator/static/js/runtime~main.c869786e.js"
   },
   {
-    "revision": "e5a507b2b5dd5b81ccc1d2132fc5964c",
+    "revision": "518afe519942a258a0ccf7866c6f90ec",
     "url": "/css-code-generator/index.html"
   }
 ];
